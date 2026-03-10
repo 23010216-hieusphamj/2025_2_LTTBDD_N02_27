@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:audioplayers/audioplayers.dart';
 
 class TimerScreen extends StatefulWidget {
   const TimerScreen({super.key});
@@ -15,7 +16,6 @@ class _TimerScreenState extends State<TimerScreen>
   @override
   void initState() {
     super.initState();
-
     _tabController = TabController(length: 3, vsync: this);
   }
 
@@ -42,15 +42,13 @@ class _TimerScreenState extends State<TimerScreen>
 
             TabBar(
               controller: _tabController,
-
+              indicatorSize: TabBarIndicatorSize.tab,
               indicator: BoxDecoration(
                 color: Colors.red,
                 borderRadius: BorderRadius.circular(12),
               ),
-
               labelColor: Colors.white,
               unselectedLabelColor: Colors.grey,
-
               tabs: const [
                 Tab(text: "Pomodoro"),
                 Tab(text: "Short Break"),
@@ -63,7 +61,7 @@ class _TimerScreenState extends State<TimerScreen>
             Expanded(
               child: TabBarView(
                 controller: _tabController,
-                children: const [
+                children: [
                   TimerUI(seconds: 1500, label: "FOCUS TIME"),
                   TimerUI(seconds: 300, label: "SHORT BREAK"),
                   TimerUI(seconds: 900, label: "LONG BREAK"),
@@ -89,13 +87,22 @@ class TimerUI extends StatefulWidget {
 
 class _TimerUIState extends State<TimerUI> {
   late int remainingSeconds;
+  late int totalSeconds;
+
   Timer? timer;
   bool isRunning = false;
+
+  final AudioPlayer player = AudioPlayer();
 
   @override
   void initState() {
     super.initState();
     remainingSeconds = widget.seconds;
+    totalSeconds = widget.seconds;
+  }
+
+  void playAlarm() async {
+    await player.play(AssetSource('sounds/nhac_chuong.mp3'));
   }
 
   void startTimer() {
@@ -108,6 +115,7 @@ class _TimerUIState extends State<TimerUI> {
         });
       } else {
         timer.cancel();
+        playAlarm(); // 🔔 phát âm thanh khi hết giờ
       }
     });
 
@@ -118,7 +126,6 @@ class _TimerUIState extends State<TimerUI> {
 
   void pauseTimer() {
     timer?.cancel();
-
     setState(() {
       isRunning = false;
     });
@@ -128,7 +135,7 @@ class _TimerUIState extends State<TimerUI> {
     timer?.cancel();
 
     setState(() {
-      remainingSeconds = widget.seconds;
+      remainingSeconds = totalSeconds;
       isRunning = false;
     });
   }
@@ -137,44 +144,54 @@ class _TimerUIState extends State<TimerUI> {
     int minutes = seconds ~/ 60;
     int secs = seconds % 60;
 
-    String m = minutes.toString().padLeft(2, '0');
-    String s = secs.toString().padLeft(2, '0');
-
-    return "$m:$s";
+    return "${minutes.toString().padLeft(2, '0')}:${secs.toString().padLeft(2, '0')}";
   }
 
   @override
   Widget build(BuildContext context) {
+    double progress = remainingSeconds / totalSeconds;
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(
-          width: 220,
-          height: 220,
-
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(color: Colors.blue, width: 4),
-          ),
-
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  formatTime(remainingSeconds),
-                  style: const TextStyle(
-                    fontSize: 42,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+        SizedBox(
+          width: 230,
+          height: 230,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              SizedBox(
+                width: 230,
+                height: 230,
+                child: CircularProgressIndicator(
+                  value: progress,
+                  strokeWidth: 8,
+                  backgroundColor: Colors.grey.shade800,
+                  valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
                 ),
+              ),
 
-                const SizedBox(height: 10),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    formatTime(remainingSeconds),
+                    style: const TextStyle(
+                      fontSize: 42,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
 
-                Text(widget.label, style: const TextStyle(color: Colors.grey)),
-              ],
-            ),
+                  const SizedBox(height: 10),
+
+                  Text(
+                    widget.label,
+                    style: const TextStyle(color: Colors.grey),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
 
