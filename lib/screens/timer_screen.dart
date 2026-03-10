@@ -12,11 +12,12 @@ class TimerScreen extends StatefulWidget {
 class _TimerScreenState extends State<TimerScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  final AudioPlayer player = AudioPlayer();
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 2, vsync: this);
   }
 
   @override
@@ -51,8 +52,7 @@ class _TimerScreenState extends State<TimerScreen>
               unselectedLabelColor: Colors.grey,
               tabs: const [
                 Tab(text: "Pomodoro"),
-                Tab(text: "Short Break"),
-                Tab(text: "Long Break"),
+                Tab(text: "Break"),
               ],
             ),
 
@@ -62,9 +62,18 @@ class _TimerScreenState extends State<TimerScreen>
               child: TabBarView(
                 controller: _tabController,
                 children: [
-                  TimerUI(seconds: 1500, label: "FOCUS TIME"),
-                  TimerUI(seconds: 300, label: "SHORT BREAK"),
-                  TimerUI(seconds: 900, label: "LONG BREAK"),
+                  TimerUI(
+                    seconds: 1500,
+                    label: "FOCUS TIME",
+                    isFocus: true,
+                    tabController: _tabController,
+                  ),
+                  TimerUI(
+                    seconds: 300,
+                    label: "BREAK TIME",
+                    isFocus: false,
+                    tabController: _tabController,
+                  ),
                 ],
               ),
             ),
@@ -78,8 +87,15 @@ class _TimerScreenState extends State<TimerScreen>
 class TimerUI extends StatefulWidget {
   final int seconds;
   final String label;
-
-  const TimerUI({super.key, required this.seconds, required this.label});
+  final bool isFocus;
+  final TabController tabController;
+  const TimerUI({
+    super.key,
+    required this.seconds,
+    required this.label,
+    required this.isFocus,
+    required this.tabController,
+  });
 
   @override
   State<TimerUI> createState() => _TimerUIState();
@@ -116,6 +132,7 @@ class _TimerUIState extends State<TimerUI> {
       } else {
         timer.cancel();
         playAlarm(); // 🔔 phát âm thanh khi hết giờ
+        showFinishDialog(); // 🔔 hiển thị dialog khi phiên làm việc kết thúc
       }
     });
 
@@ -147,6 +164,140 @@ class _TimerUIState extends State<TimerUI> {
     return "${minutes.toString().padLeft(2, '0')}:${secs.toString().padLeft(2, '0')}";
   }
 
+  void stopAlarm() async {
+    await player.stop();
+  }
+
+  void showTimeInputDialog() {
+    TextEditingController minController =
+        TextEditingController();
+    TextEditingController secController =
+        TextEditingController();
+
+    minController.text = (remainingSeconds ~/ 60).toString();
+    secController.text = (remainingSeconds % 60).toString();
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Set Timer"),
+
+          content: Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: minController,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    labelText: "Minutes",
+                  ),
+                ),
+              ),
+
+              const SizedBox(width: 10),
+
+              Expanded(
+                child: TextField(
+                  controller: secController,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    labelText: "Seconds",
+                  ),
+                ),
+              ),
+            ],
+          ),
+
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text("Cancel"),
+            ),
+
+            TextButton(
+              onPressed: () {
+                int minutes =
+                    int.tryParse(minController.text) ?? 0;
+                int seconds =
+                    int.tryParse(secController.text) ?? 0;
+
+                int total = minutes * 60 + seconds;
+
+                if (total > 0) {
+                  setState(() {
+                    totalSeconds = total;
+                    remainingSeconds = total;
+                  });
+                }
+
+                Navigator.pop(context);
+              },
+              child: const Text("Save"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void showFinishDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Session Finished"),
+
+          content: Text(
+            widget.isFocus
+                ? "Pomodoro finished. Start break?"
+                : "Break finished. Start focus?",
+          ),
+
+          actions: [
+            // STOP ALARM
+            TextButton(
+              onPressed: () {
+                player.stop();
+
+                setState(() {
+                  remainingSeconds = totalSeconds;
+                });
+
+                Navigator.pop(context);
+              },
+              child: const Text("Stop Alarm"),
+            ),
+
+            // START NEXT SESSION
+            ElevatedButton(
+              onPressed: () {
+                player.stop();
+
+                Navigator.pop(context);
+
+                if (widget.isFocus) {
+                  // chuyển sang tab Break
+                  widget.tabController.animateTo(1);
+                } else {
+                  // chuyển sang tab Pomodoro
+                  widget.tabController.animateTo(1);
+                }
+              },
+
+              child: Text(
+                widget.isFocus ? "Start Break" : "Start Focus",
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     double progress = remainingSeconds / totalSeconds;
@@ -167,19 +318,25 @@ class _TimerUIState extends State<TimerUI> {
                   value: progress,
                   strokeWidth: 8,
                   backgroundColor: Colors.grey.shade800,
-                  valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
+                  valueColor:
+                      const AlwaysStoppedAnimation<Color>(
+                        Colors.blue,
+                      ),
                 ),
               ),
 
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    formatTime(remainingSeconds),
-                    style: const TextStyle(
-                      fontSize: 42,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                  GestureDetector(
+                    onTap: showTimeInputDialog,
+                    child: Text(
+                      formatTime(remainingSeconds),
+                      style: const TextStyle(
+                        fontSize: 42,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
 
@@ -201,7 +358,10 @@ class _TimerUIState extends State<TimerUI> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             IconButton(
-              icon: const Icon(Icons.refresh, color: Colors.white),
+              icon: const Icon(
+                Icons.refresh,
+                color: Colors.white,
+              ),
               onPressed: resetTimer,
             ),
 
