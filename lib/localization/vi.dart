@@ -27,4 +27,13 @@ const Map<String, String> vi = {
   "stop_alarm": "Dừng Cảnh Báo",
   "start_break": "Bắt Đầu Nghỉ Ngơi",
   "start_focus": "Bắt Đầu Tập Trung",
+  "student": "SINH VIÊN",
+  "full_name": "Họ và tên",
+  "student_id": "Mã số sinh viên",
+  "instructor": "GIẢNG VIÊN",
+  "instructor_1": "Giảng viên",
+  "group_info": "Thông tin nhóm",
+  "group_27": "Nhóm 27",
+  "course": "Môn học",
+  "mobile_device_programming": "Lập trình thiết bị di động",
 };

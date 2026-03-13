@@ -26,4 +26,13 @@ const Map<String, String> en = {
   "stop_alarm": "Stop Alarm",
   "start_break": "Start Break",
   "start_focus": "Start Focus",
+  "student": "STUDENT",
+  "full_name": "Full Name",
+  "student_id": "Student ID",
+  "instructor": "INSTRUCTOR",
+  "instructor_1": "Instructor",
+  "group_info": "Group Info",
+  "group_27": "Group 27",
+  "course": "Course",
+  "mobile_device_programming": "Mobile Device Programming",
 };

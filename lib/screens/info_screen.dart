@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../localization/app_language.dart';
 
 class InfoScreen extends StatelessWidget {
   const InfoScreen({super.key});
@@ -9,8 +10,8 @@ class InfoScreen extends StatelessWidget {
       backgroundColor: const Color(0xff2b0c0c),
 
       appBar: AppBar(
-        title: const Text(
-          "Group Info",
+        title: Text(
+          AppLanguage.get("group_info"),
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
@@ -23,8 +24,8 @@ class InfoScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         children: [
           /// COURSE
-          const Text(
-            "COURSE",
+          Text(
+            AppLanguage.get("course"),
             style: TextStyle(
               color: Colors.red,
               fontWeight: FontWeight.bold,
@@ -40,11 +41,11 @@ class InfoScreen extends StatelessWidget {
               color: const Color(0xff3a1111),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: const Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Mobile Device Programming (N02)",
+                  AppLanguage.get("mobile_device_programming"),
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 16,
@@ -54,7 +55,7 @@ class InfoScreen extends StatelessWidget {
                 SizedBox(height: 8),
 
                 Text(
-                  "Group 27",
+                  AppLanguage.get("group_27"),
                   style: TextStyle(color: Colors.white70),
                 ),
               ],
@@ -64,8 +65,8 @@ class InfoScreen extends StatelessWidget {
           const SizedBox(height: 25),
 
           /// STUDENT
-          const Text(
-            "STUDENT",
+          Text(
+            AppLanguage.get("student"),
             style: TextStyle(
               color: Colors.red,
               fontWeight: FontWeight.bold,
@@ -82,11 +83,11 @@ class InfoScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
             ),
 
-            child: const Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Full Name",
+                  AppLanguage.get("full_name"),
                   style: TextStyle(color: Colors.white54),
                 ),
 
@@ -103,7 +104,7 @@ class InfoScreen extends StatelessWidget {
                 SizedBox(height: 15),
 
                 Text(
-                  "Student ID",
+                  AppLanguage.get("student_id"),
                   style: TextStyle(color: Colors.white54),
                 ),
 
@@ -123,8 +124,8 @@ class InfoScreen extends StatelessWidget {
           const SizedBox(height: 25),
 
           /// INSTRUCTOR
-          const Text(
-            "INSTRUCTOR",
+          Text(
+            AppLanguage.get("instructor"),
             style: TextStyle(
               color: Colors.red,
               fontWeight: FontWeight.bold,
@@ -141,11 +142,11 @@ class InfoScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
             ),
 
-            child: const Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Instructor",
+                  AppLanguage.get("instructor_1"),
                   style: TextStyle(color: Colors.white70),
                 ),
 
