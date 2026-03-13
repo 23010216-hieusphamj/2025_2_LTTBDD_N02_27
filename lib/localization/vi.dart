@@ -15,4 +15,16 @@ const Map<String, String> vi = {
   "break": "Nghỉ",
   "focus_time": "THỜI GIAN TẬP TRUNG",
   "break_time": "THỜI GIAN NGHỈ",
+  "set_timer": "Đặt bộ đếm",
+  "minutes": "Phút",
+  "seconds": "Giây",
+  "cancel": "Hủy",
+  "save": "Lưu",
+  "session_finished": "Phiên đã kết thúc",
+  "pomodoro_finished":
+      "Phiên tập trung đã kết thúc. Bắt đầu nghỉ ngơi?",
+  "break_finished": "Phiên nghỉ đã kết thúc. Bắt đầu tập trung?",
+  "stop_alarm": "Dừng Cảnh Báo",
+  "start_break": "Bắt Đầu Nghỉ Ngơi",
+  "start_focus": "Bắt Đầu Tập Trung",
 };

@@ -182,7 +182,7 @@ class _TimerUIState extends State<TimerUI> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text("Set Timer"),
+          title: Text(AppLanguage.get("set_timer")),
 
           content: Row(
             children: [
@@ -190,8 +190,8 @@ class _TimerUIState extends State<TimerUI> {
                 child: TextField(
                   controller: minController,
                   keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    labelText: "Minutes",
+                  decoration: InputDecoration(
+                    labelText: AppLanguage.get("minutes"),
                   ),
                 ),
               ),
@@ -202,8 +202,8 @@ class _TimerUIState extends State<TimerUI> {
                 child: TextField(
                   controller: secController,
                   keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    labelText: "Seconds",
+                  decoration: InputDecoration(
+                    labelText: AppLanguage.get("seconds"),
                   ),
                 ),
               ),
@@ -215,7 +215,7 @@ class _TimerUIState extends State<TimerUI> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: const Text("Cancel"),
+              child: Text(AppLanguage.get("cancel")),
             ),
 
             TextButton(
@@ -236,7 +236,7 @@ class _TimerUIState extends State<TimerUI> {
 
                 Navigator.pop(context);
               },
-              child: const Text("Save"),
+              child: Text(AppLanguage.get("save")),
             ),
           ],
         );
@@ -250,12 +250,12 @@ class _TimerUIState extends State<TimerUI> {
       barrierDismissible: false,
       builder: (context) {
         return AlertDialog(
-          title: const Text("Session Finished"),
+          title: Text(AppLanguage.get("session_finished")),
 
           content: Text(
             widget.isFocus
-                ? "Pomodoro finished. Start break?"
-                : "Break finished. Start focus?",
+                ? AppLanguage.get("pomodoro_finished")
+                : AppLanguage.get("break_finished"),
           ),
 
           actions: [
@@ -270,7 +270,7 @@ class _TimerUIState extends State<TimerUI> {
 
                 Navigator.pop(context);
               },
-              child: const Text("Stop Alarm"),
+              child: Text(AppLanguage.get("stop_alarm")),
             ),
 
             // START NEXT SESSION
@@ -285,12 +285,14 @@ class _TimerUIState extends State<TimerUI> {
                   widget.tabController.animateTo(1);
                 } else {
                   // chuyển sang tab Pomodoro
-                  widget.tabController.animateTo(1);
+                  widget.tabController.animateTo(0);
                 }
               },
 
               child: Text(
-                widget.isFocus ? "Start Break" : "Start Focus",
+                widget.isFocus
+                    ? AppLanguage.get("start_break")
+                    : AppLanguage.get("start_focus"),
               ),
             ),
           ],
