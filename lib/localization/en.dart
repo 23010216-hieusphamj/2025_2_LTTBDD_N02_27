@@ -35,4 +35,7 @@ const Map<String, String> en = {
   "group_27": "Group 27",
   "course": "Course",
   "mobile_device_programming": "Mobile Device Programming",
+  "timer": "Timer",
+  "tasks": "Tasks",
+  "info": "Info",
 };

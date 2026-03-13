@@ -36,4 +36,7 @@ const Map<String, String> vi = {
   "group_27": "Nhóm 27",
   "course": "Môn học",
   "mobile_device_programming": "Lập trình thiết bị di động",
+  "timer": "Bộ đếm",
+  "tasks": "Công việc",
+  "info": "Thông tin",
 };

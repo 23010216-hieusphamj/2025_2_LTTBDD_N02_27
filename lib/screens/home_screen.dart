@@ -3,6 +3,7 @@ import 'timer_screen.dart';
 import 'tasks_screen.dart';
 import 'info_screen.dart';
 import 'settings_screen.dart';
+import '../localization/app_language.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -39,16 +40,25 @@ class _HomeScreenState extends State<HomeScreen> {
           });
         },
 
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.timer), label: "Timer"),
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.timer),
+            label: AppLanguage.get("timer"),
+          ),
 
-          BottomNavigationBarItem(icon: Icon(Icons.task), label: "Tasks"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.task),
+            label: AppLanguage.get("tasks"),
+          ),
 
-          BottomNavigationBarItem(icon: Icon(Icons.info), label: "Info"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.info),
+            label: AppLanguage.get("info"),
+          ),
 
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
-            label: "Settings",
+            label: AppLanguage.get("settings"),
           ),
         ],
       ),
