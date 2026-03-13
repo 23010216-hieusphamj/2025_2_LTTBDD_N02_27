@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../localization/app_language.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -9,6 +10,7 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   bool notifications = true;
+  String selectedLanguage = "en";
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +20,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
       appBar: AppBar(
         backgroundColor: const Color(0xff2b0c0c),
         elevation: 0,
-        title: const Text(
-          "Settings",
+        title: Text(
+          AppLanguage.get("settings"),
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
@@ -31,8 +33,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
         child: ListView(
           children: [
             /// GENERAL
-            const Text(
-              "GENERAL",
+            Text(
+              AppLanguage.get("general"),
               style: TextStyle(
                 color: Colors.red,
                 fontWeight: FontWeight.bold,
@@ -59,8 +61,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       Icons.notifications,
                       color: Colors.red,
                     ),
-                    title: const Text(
-                      "Notifications",
+                    title: Text(
+                      AppLanguage.get("notifications"),
                       style: TextStyle(color: Colors.white),
                     ),
                     trailing: Switch(
@@ -85,12 +87,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       Icons.dark_mode,
                       color: Colors.red,
                     ),
-                    title: const Text(
-                      "Theme",
+                    title: Text(
+                      AppLanguage.get("theme"),
                       style: TextStyle(color: Colors.white),
                     ),
-                    subtitle: const Text(
-                      "Dark Mode",
+                    subtitle: Text(
+                      AppLanguage.get("dark_mode"),
                       style: TextStyle(color: Colors.white54),
                     ),
                     trailing: const Icon(
@@ -112,17 +114,39 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       Icons.language,
                       color: Colors.red,
                     ),
-                    title: const Text(
-                      "Language",
-                      style: TextStyle(color: Colors.white),
+                    title: Text(
+                      AppLanguage.get("language"),
+                      style: const TextStyle(
+                        color: Colors.white,
+                      ),
                     ),
-                    subtitle: const Text(
-                      "English",
-                      style: TextStyle(color: Colors.white54),
-                    ),
-                    trailing: const Icon(
-                      Icons.arrow_drop_down,
-                      color: Colors.white54,
+                    trailing: DropdownButton<String>(
+                      value: selectedLanguage,
+                      dropdownColor: const Color(0xff3a1111),
+                      underline: const SizedBox(),
+                      icon: const Icon(
+                        Icons.arrow_drop_down,
+                        color: Colors.white54,
+                      ),
+                      style: const TextStyle(
+                        color: Colors.white,
+                      ),
+                      items: const [
+                        DropdownMenuItem(
+                          value: "en",
+                          child: Text("English"),
+                        ),
+                        DropdownMenuItem(
+                          value: "vi",
+                          child: Text("Tiếng Việt"),
+                        ),
+                      ],
+                      onChanged: (value) {
+                        setState(() {
+                          selectedLanguage = value!;
+                          AppLanguage.setLanguage(value);
+                        });
+                      },
                     ),
                   ),
                 ],
@@ -132,8 +156,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
             const SizedBox(height: 20),
 
             /// APP
-            const Text(
-              "APP",
+            Text(
+              AppLanguage.get("app"),
               style: TextStyle(
                 color: Colors.red,
                 fontWeight: FontWeight.bold,
@@ -151,26 +175,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
               child: Column(
                 children: [
                   /// ABOUT
-                  const ListTile(
+                  ListTile(
                     contentPadding: const EdgeInsets.symmetric(
                       horizontal: 16,
                       vertical: 8,
                     ),
                     leading: Icon(Icons.info, color: Colors.red),
                     title: Text(
-                      "About",
+                      AppLanguage.get("about"),
                       style: TextStyle(color: Colors.white),
                     ),
                     subtitle: Text(
-                      "Version 1.0.0",
-                      style: TextStyle(color: Colors.white54),
+                      "${AppLanguage.get("version")} 1.0.0",
+                      style: const TextStyle(
+                        color: Colors.white54,
+                      ),
                     ),
                   ),
 
                   const Divider(color: Colors.white10),
 
                   /// PRIVACY
-                  const ListTile(
+                  ListTile(
                     contentPadding: const EdgeInsets.symmetric(
                       horizontal: 16,
                       vertical: 8,
@@ -180,11 +206,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       color: Colors.red,
                     ),
                     title: Text(
-                      "Privacy Policy",
+                      AppLanguage.get("privacy_policy"),
                       style: TextStyle(color: Colors.white),
                     ),
                     subtitle: Text(
-                      "View policy",
+                      AppLanguage.get("view_policy"),
                       style: TextStyle(color: Colors.white54),
                     ),
                     trailing: Icon(
