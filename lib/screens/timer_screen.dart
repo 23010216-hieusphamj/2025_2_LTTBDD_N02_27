@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
+import '../localization/app_language.dart';
 
 class TimerScreen extends StatefulWidget {
   const TimerScreen({super.key});
@@ -30,8 +31,8 @@ class _TimerScreenState extends State<TimerScreen>
           children: [
             const SizedBox(height: 20),
 
-            const Text(
-              "Pomodoro Timer",
+            Text(
+              AppLanguage.get("pomodoro_timer"),
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
@@ -50,9 +51,9 @@ class _TimerScreenState extends State<TimerScreen>
               ),
               labelColor: Colors.white,
               unselectedLabelColor: Colors.grey,
-              tabs: const [
-                Tab(text: "Pomodoro"),
-                Tab(text: "Break"),
+              tabs: [
+                Tab(text: AppLanguage.get("pomodoro")),
+                Tab(text: AppLanguage.get("break")),
               ],
             ),
 
@@ -64,13 +65,13 @@ class _TimerScreenState extends State<TimerScreen>
                 children: [
                   TimerUI(
                     seconds: 1500,
-                    label: "FOCUS TIME",
+                    label: AppLanguage.get("focus_time"),
                     isFocus: true,
                     tabController: _tabController,
                   ),
                   TimerUI(
                     seconds: 300,
-                    label: "BREAK TIME",
+                    label: AppLanguage.get("break_time"),
                     isFocus: false,
                     tabController: _tabController,
                   ),

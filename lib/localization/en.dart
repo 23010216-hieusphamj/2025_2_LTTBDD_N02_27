@@ -1,0 +1,18 @@
+const Map<String, String> en = {
+  "settings": "Settings",
+  "general": "GENERAL",
+  "notifications": "Notifications",
+  "theme": "Theme",
+  "dark_mode": "Dark Mode",
+  "language": "Language",
+  "about": "About",
+  "privacy_policy": "Privacy Policy",
+  "app": "APP",
+  "view_policy": "View policy",
+  "version": "Version",
+  "pomodoro_timer": "Pomodoro Timer",
+  "pomodoro": "Pomodoro",
+  "break": "Break",
+  "focus_time": "FOCUS TIME",
+  "break_time": "BREAK TIME",
+};

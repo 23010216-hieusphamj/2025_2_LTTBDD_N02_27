@@ -1,0 +1,18 @@
+const Map<String, String> vi = {
+  "settings": "Cài đặt",
+  "general": "CHUNG",
+  "notifications": "Thông báo",
+  "theme": "Giao diện",
+  "dark_mode": "Chế độ tối",
+  "language": "Ngôn ngữ",
+  "about": "Giới thiệu",
+  "privacy_policy": "Chính sách bảo mật",
+  "app": "ỨNG DỤNG",
+  "view_policy": "Xem chính sách",
+  "version": "Phiên bản",
+  "pomodoro_timer": "Bộ đếm Pomodoro",
+  "pomodoro": "Tập trung",
+  "break": "Nghỉ",
+  "focus_time": "THỜI GIAN TẬP TRUNG",
+  "break_time": "THỜI GIAN NGHỈ",
+};
