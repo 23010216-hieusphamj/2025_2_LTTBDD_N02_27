@@ -50,27 +50,37 @@ class _SettingsScreenState extends State<SettingsScreen> {
               child: Column(
                 children: [
                   /// NOTIFICATION
-                  SwitchListTile(
+                  ListTile(
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
+                    leading: const Icon(
+                      Icons.notifications,
+                      color: Colors.red,
+                    ),
                     title: const Text(
                       "Notifications",
                       style: TextStyle(color: Colors.white),
                     ),
-                    secondary: const Icon(
-                      Icons.notifications,
-                      color: Colors.red,
+                    trailing: Switch(
+                      value: notifications,
+                      onChanged: (value) {
+                        setState(() {
+                          notifications = value;
+                        });
+                      },
                     ),
-                    value: notifications,
-                    onChanged: (value) {
-                      setState(() {
-                        notifications = value;
-                      });
-                    },
                   ),
 
                   const Divider(color: Colors.white10),
 
                   /// THEME
                   ListTile(
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
                     leading: const Icon(
                       Icons.dark_mode,
                       color: Colors.red,
@@ -94,6 +104,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
                   /// LANGUAGE
                   ListTile(
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
                     leading: const Icon(
                       Icons.language,
                       color: Colors.red,
@@ -138,6 +152,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 children: [
                   /// ABOUT
                   const ListTile(
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
                     leading: Icon(Icons.info, color: Colors.red),
                     title: Text(
                       "About",
@@ -153,6 +171,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
                   /// PRIVACY
                   const ListTile(
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
                     leading: Icon(
                       Icons.privacy_tip,
                       color: Colors.red,
@@ -160,6 +182,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     title: Text(
                       "Privacy Policy",
                       style: TextStyle(color: Colors.white),
+                    ),
+                    subtitle: Text(
+                      "View policy",
+                      style: TextStyle(color: Colors.white54),
                     ),
                     trailing: Icon(
                       Icons.open_in_new,
@@ -170,8 +196,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ],
               ),
             ),
-
-            const SizedBox(height: 30),
           ],
         ),
       ),
