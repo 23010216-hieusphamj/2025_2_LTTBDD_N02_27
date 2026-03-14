@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'add_task_screen.dart';
 import '../widgets/task_card.dart';
+import '../localization/app_language.dart';
 
 class TasksScreen extends StatefulWidget {
   const TasksScreen({super.key});
@@ -20,7 +21,10 @@ class _TasksScreenState extends State<TasksScreen> {
 
     if (newTask != null && newTask.toString().isNotEmpty) {
       setState(() {
-        tasks.add({"title": newTask, "done": false});
+        tasks.add({
+          AppLanguage.get("title"): newTask,
+          AppLanguage.get("done"): false,
+        });
       });
     }
   }
@@ -43,9 +47,9 @@ class _TasksScreenState extends State<TasksScreen> {
           child: Column(
             children: [
               /// TITLE
-              const Center(
+              Center(
                 child: Text(
-                  "Tasks",
+                  AppLanguage.get("tasks"),
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -59,7 +63,7 @@ class _TasksScreenState extends State<TasksScreen> {
               /// SEARCH BAR
               TextField(
                 decoration: InputDecoration(
-                  hintText: "Search tasks...",
+                  hintText: AppLanguage.get("search_tasks"),
                   hintStyle: const TextStyle(
                     color: Colors.white54,
                   ),
@@ -77,9 +81,9 @@ class _TasksScreenState extends State<TasksScreen> {
               /// TASK LIST
               Expanded(
                 child: tasks.isEmpty
-                    ? const Center(
+                    ? Center(
                         child: Text(
-                          "No tasks yet",
+                          AppLanguage.get("no_tasks"),
                           style: TextStyle(
                             color: Colors.white54,
                             fontSize: 16,
@@ -90,13 +94,23 @@ class _TasksScreenState extends State<TasksScreen> {
                         itemCount: tasks.length,
                         itemBuilder: (context, index) {
                           return TaskCard(
-                            title: tasks[index]["title"],
-                            isDone: tasks[index]["done"],
+                            title:
+                                tasks[index][AppLanguage.get(
+                                  "title",
+                                )],
+                            isDone:
+                                tasks[index][AppLanguage.get(
+                                  "done",
+                                )],
 
                             onToggle: () {
                               setState(() {
-                                tasks[index]["done"] =
-                                    !tasks[index]["done"];
+                                tasks[index][AppLanguage.get(
+                                      "done",
+                                    )] =
+                                    !tasks[index][AppLanguage.get(
+                                      "done",
+                                    )];
                               });
                             },
 

@@ -38,4 +38,12 @@ const Map<String, String> en = {
   "timer": "Timer",
   "tasks": "Tasks",
   "info": "Info",
+  "title": "title",
+  "done": "done",
+  "search_tasks": "Search tasks...",
+  "no_tasks": "No tasks yet",
+  "add_task": "Add Task",
+  "task_name": "Task Name",
+  "enter_task": "Enter task...",
+  "save_task": "Save Task",
 };

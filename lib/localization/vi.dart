@@ -39,4 +39,12 @@ const Map<String, String> vi = {
   "timer": "Bộ đếm",
   "tasks": "Công việc",
   "info": "Thông tin",
+  "title": "tiêu đề",
+  "done": "hoàn thành",
+  "search_tasks": "Tìm kiếm công việc...",
+  "no_tasks": "Chưa có công việc nào",
+  "add_task": "Thêm công việc",
+  "task_name": "Tên công việc",
+  "enter_task": "Nhập công việc...",
+  "save_task": "Lưu công việc",
 };

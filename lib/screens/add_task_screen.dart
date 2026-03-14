@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../localization/app_language.dart';
 
 class AddTaskScreen extends StatefulWidget {
   const AddTaskScreen({super.key});
@@ -23,8 +24,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
       backgroundColor: const Color(0xff2b0c0c),
 
       appBar: AppBar(
-        title: const Text(
-          "Add Task",
+        title: Text(
+          AppLanguage.get("add_task"),
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
@@ -38,8 +39,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              "Task Name",
+            Text(
+              AppLanguage.get("task_name"),
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.white,
@@ -53,7 +54,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               style: const TextStyle(color: Colors.white),
 
               decoration: InputDecoration(
-                hintText: "Enter task...",
+                hintText: AppLanguage.get("enter_task"),
                 hintStyle: const TextStyle(
                   color: Colors.white54,
                 ),
@@ -81,8 +82,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                   ),
                 ),
 
-                child: const Text(
-                  "Save Task",
+                child: Text(
+                  AppLanguage.get("save_task"),
                   style: TextStyle(fontSize: 16),
                 ),
               ),
