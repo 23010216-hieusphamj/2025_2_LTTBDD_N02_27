@@ -1,17 +1,15 @@
-# pomodoro_todolist_app
+# Pomodoro To-Do List App
 
-A new Flutter project.
+## Thông tin môn học
+- **Lớp học phần:** Lập trình cho thiết bị di động  
+- **Nhóm:** 27  
 
-## Getting Started
+## Thông tin đề tài
+- **Đề tài:** Pomodoro To-Do List App  
 
-This project is a starting point for a Flutter application.
+## Thông tin sinh viên
+- **Họ và tên:** Phạm Bá Hiếu  
+- **Mã sinh viên:** 23010216  
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Giảng viên hướng dẫn
+- **Nguyễn Xuân Quế**
